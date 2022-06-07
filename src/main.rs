@@ -1,6 +1,9 @@
 mod lib;
 use lib::*;
 
+mod components;
+use crate::components::feed_card::FeedCard;
+
 use yew::prelude::*;
 use reqwasm::http::Request;
 use minidom::Element;
@@ -55,6 +58,11 @@ fn app() -> Html {
     html! {
         <>
             <h1>{"RSST!!!"}</h1>
+            if feeds.len() > 0 {
+                {feeds.iter().map(|f| html! {
+                    <FeedCard feed={f.clone()}/>
+                }).collect::<Html>()}
+            }
         </>
 
     }
