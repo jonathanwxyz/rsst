@@ -27,7 +27,7 @@ fn app() -> Html {
                         .await
                         .unwrap();
 
-                    fetched_feed = add_namespace(fetched_feed);
+                    add_namespace(&mut fetched_feed);
 
                     let root: Element = fetched_feed.parse().unwrap();
 

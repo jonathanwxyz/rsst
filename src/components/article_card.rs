@@ -1,4 +1,4 @@
-use crate::lib::Article;
+use crate::lib::{Article, concise_description};
 use crate::components::safe_html::SafeHtml;
 
 use yew::prelude::*;
@@ -14,8 +14,9 @@ pub fn article_card(ArticleCardProps { article }: &ArticleCardProps) -> Html {
     let desc = &article.description;
     let displayed_desc: Html;
     if desc.starts_with('<') {
+        let concise = concise_description(desc);
         displayed_desc = html! {
-            <SafeHtml html={desc.clone()}/>
+            <SafeHtml html={concise.clone()}/>
         }
     } else {
         displayed_desc = html! {
@@ -24,7 +25,7 @@ pub fn article_card(ArticleCardProps { article }: &ArticleCardProps) -> Html {
     }
 
     html! {
-        <div>
+        <div class="article-card">
             <h3>{&article.title}</h3>
             {displayed_desc}
         </div>

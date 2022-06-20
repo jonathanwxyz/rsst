@@ -15,7 +15,7 @@ pub fn feed_card(ArticleCardProps {feed}: &ArticleCardProps) -> Html {
     }).collect::<Html>();
 
     html! {
-        <div>
+        <div class="feed-card">
             <h2>{&feed.title}</h2>
             {articles}
         </div>

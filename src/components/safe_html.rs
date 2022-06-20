@@ -7,8 +7,8 @@ pub struct Props {
 
 #[function_component(SafeHtml)]
 pub fn safe_html(props: &Props) -> Html {
-    let div = gloo_utils::document().create_element("div").unwrap();
-    div.set_inner_html(&props.html.clone());
+    let p = gloo_utils::document().create_element("p").unwrap();
+    p.set_inner_html(&props.html.clone());
 
-    Html::VRef(div.into())
+    Html::VRef(p.into())
 }

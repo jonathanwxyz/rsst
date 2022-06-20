@@ -1,3 +1,4 @@
+use regex::Regex;
 use minidom::Element;
 
 #[derive(Debug, Clone, PartialEq)]
@@ -20,12 +21,19 @@ pub fn parse_fields(item: &Element, tag: &str) -> String {
     }
 }
 
-pub fn add_namespace(mut xml: String) -> String {
+pub fn add_namespace(xml: &mut String) {
     let rss_idx = match xml.match_indices("rss").next() {
         Some(ridx) => ridx.0,
         None => panic!("Failed: unable to find compatible rss xml")
     };
 
     xml.insert_str(rss_idx + 3, r#" xmlns="""#);
-    xml
+}
+
+pub fn concise_description(html: &String) -> String {
+    const LEN:usize = 300;
+    let mat = Regex::new(r"<p>.*</p>").unwrap().find(html).unwrap().as_str();
+    if mat.len() > LEN {
+      mat[3..LEN].to_string() + "..."
+    } else { mat.to_owned() }
 }
